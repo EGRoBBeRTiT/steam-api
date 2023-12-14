@@ -1,0 +1,69 @@
+openapi: 3.0.1
+info:
+  title: Steam API
+  description: API для работы с Steam
+  version: 1.0.0
+servers:
+  - url: https://api.steampowered.com
+  - url: https://partner.steam-api.com
+tags:
+  - name: Group
+    description: Все для работы с группами
+paths:
+  /actions/GroupCreate:
+    post:
+      tags:
+        - Group
+      summary: Создание группы
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+                $ref: '#/components/schemas/GroupCreate'
+        required: true
+      responses:
+        '302':
+          description: Перенаправление, если step = 2 на 
+        '200':
+          description: Success
+          content:
+            text/html; charset=UTF-8: 
+             example: '<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>'
+components:
+  schemas:
+    GroupCreate:
+      required:
+        - sessionID
+        - step
+        - groupName
+        - abbreviation
+        - groupLink
+      type: object
+      properties:
+        sessionID:
+          type: string
+          example: /sdfvfdvfdv
+        step:
+          type: number
+        groupName:
+          type: string
+        abbreviation:
+          type: string
+        groupLink:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: JWT Authorization header using the Bearer scheme.
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []
