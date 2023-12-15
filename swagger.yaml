@@ -4,11 +4,12 @@ info:
   description: API для работы с Steam
   version: 1.0.0
 servers:
-  - url: https://api.steampowered.com
-  - url: https://partner.steam-api.com
+  - url: https://steamcommunity.com
 tags:
   - name: Group
     description: Все для работы с группами
+  - name: FileUploader
+    description: Загрузка изображжений
 paths:
   /actions/GroupCreate:
     post:
@@ -28,15 +29,223 @@ paths:
           description: Success
           content:
             text/html; charset=UTF-8: 
-             example: '<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body></body>
-</html>'
+              schema:
+                $ref: '#/components/schemas/HtmlResponse'
+  /groups/{groupLink}/edit/profile:
+    post:
+      tags:
+        - Group
+      summary: Редактирование группы
+      parameters:
+        - in: path
+          name: groupLink
+          schema:
+            type: string
+          required: true
+          description: Ссылка группы, которая указывалась при создании
+          example: robber-vk
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+                $ref: '#/components/schemas/GroupEdit'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            text/html; charset=UTF-8: 
+              schema:
+                $ref: '#/components/schemas/HtmlResponse'
+            
+  /groups/{groupLink}:
+    get:
+      tags:
+        - Group
+      summary: Получение страницы с группой
+      parameters:
+        - in: path
+          name: groupLink
+          schema:
+            type: string
+          required: true
+          description: Ссылка группы, которая указывалась при создании
+          example: robber-vk
+      responses:
+        '200':
+          description: Success
+          content:
+            text/html; charset=UTF-8: 
+              schema:
+                $ref: '#/components/schemas/HtmlResponse'
+  /groups/{groupLink}/permissionsEdit:
+    get:
+      tags:
+        - Group
+      summary: Получить страницу с разрещениями группы
+      parameters:
+        - in: path
+          name: groupLink
+          schema:
+            type: string
+          required: true
+          description: Ссылка группы, которая указывалась при создании
+          example: robber-vk
+      responses:
+        '200':
+          description: Success
+          content:
+            text/html; charset=UTF-8: 
+              schema:
+                $ref: '#/components/schemas/HtmlResponse'
+    post:
+      tags:
+        - Group
+      summary: Редактировать разрешения группы
+      parameters:
+        - in: path
+          name: groupLink
+          schema:
+            type: string
+          required: true
+          description: Ссылка группы, которая указывалась при создании
+          example: robber-vk
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+                $ref: '#/components/schemas/GroupPermissionsEdit'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/html; charset=UTF-8: 
+              schema:
+                $ref: '#/components/schemas/HtmlResponse'
+  /groups/{groupLink}/announcements:
+    post:
+      tags:
+        - Group
+      summary: Создать/Редактировать объявление в группе
+      parameters:
+        - in: path
+          name: groupLink
+          schema:
+            type: string
+          required: true
+          description: Ссылка группы, которая указывалась при создании
+          example: robber-vk
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+                $ref: '#/components/schemas/GroupAnnouncementsCreate'
+      responses:
+        '302':
+          description: Перенаправляет на страницу с объявлениями
+  /groups/{groupLink}/announcements/delete/{announcementId}:
+    get:
+      tags:
+        - Group
+      summary: УДАЛИТЬ объявление
+      parameters:
+        - in: path
+          name: groupLink
+          schema:
+            type: string
+          required: true
+          description: Ссылка группы, которая указывалась при создании
+          example: robber-vk
+        - in: path
+          name: announcementId
+          schema:
+            type: string
+          required: true
+          description: Айди объявления
+          example: 3904122044547675673
+        - in: query
+          name: sessionID
+          schema:
+            type: string
+          example: 034163d4525f49b02747008a
+          required: true
+      responses:
+        '302':
+          description: Перенаправляет на страницу с объявлениями
+  /groups/{groupLink}/announcements/listing:
+    get:
+      tags:
+        - Group
+      summary: Получить список объявлений
+      parameters:
+        - in: path
+          name: groupLink
+          schema:
+            type: string
+          required: true
+          description: Ссылка группы, которая указывалась при создании
+          example: robber-vk
+        - in: query
+          name: content_only
+          schema:
+            type: boolean
+          example: true
+      responses:
+        '200':
+          description: Страница с объявлениями
+          content:
+            text/html; charset=UTF-8: 
+              schema:
+                $ref: '#/components/schemas/HtmlResponse'
+
+          
+  /actions/FileUploader:
+    post:
+      tags:
+        - FileUploader
+      summary: Загрузка изображений
+      parameters:
+        - in: query
+          name: type
+          schema:
+            type: string
+          description: Тип места, куда будет загружена картинка
+          example: group_avatar_image
+        - in: query
+          name: gId
+          schema:
+            type: string
+          description: Айдишник
+          example: 103582791474666000
+        - in: query
+          name: bgColor
+          schema:
+            type: string
+          description: Код цвета для фона (!?)
+          example: 1b2838
+        
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+                $ref: '#/components/schemas/UploadImage'
+        required: true
+        
+      responses:
+        '200':
+          description: Success
+          headers:
+            Set-Cookie:
+
+              description: >
+                Contains the session cookie named `COOKIE-NAME`.
+                Pass this cookie back in subsequent requests.
+              schema: 
+                type: string
+          content:
+            text/html; charset=UTF-8: 
+              schema:
+                $ref: '#/components/schemas/HtmlResponse'
 components:
   schemas:
     GroupCreate:
@@ -59,11 +268,228 @@ components:
           type: string
         groupLink:
           type: string
+    GroupEdit:
+        required:
+          - sessionID
+        type: object
+        properties:
+          sessionID:
+            type: string
+          type:
+            type: string
+            description: Example - "profileSave"
+          abbreviation:
+            type: string
+          customURL:
+            type: string
+          headline:
+            type: string
+          summary:
+            type: string
+          language:
+            type: string
+          country:
+            type: string
+
+          state:
+            type: string
+          city:
+            type: string
+          associate_game:
+            type: string
+          favorite_games:
+            type: string
+    GroupPermissionsEdit:
+        required:
+          - sessionID
+        type: object
+        properties:
+          sessionID:
+            type: string
+          groupType:
+            type: string
+            description: Example - "private"
+          permissions[caneditprops]:
+            type: integer
+          permissions[canmakeofficer]:
+            type: integer
+          permissions[canschedule]:
+            type: integer
+          permissions[canannounce]:
+            type: integer
+          permissions[canpotw]:
+            type: integer
+          permissions[cankickmembers]:
+            type: integer
+          permissions[cancurateapps]:
+            type: integer
+          permissions[canclaimoffers]:
+            type: integer
+          permissions[canbroadcast]:
+            type: integer
+          permissions[canchataccess]:
+            type: integer
+          permissions[canchatkick]:
+            type: integer
+          permissions[canchatban]:
+            type: integer
+          permissions[canchatinvite]:
+            type: integer
+          permissions[canpostcomments]:
+            type: integer
+          permissions[candeletecomments]:
+            type: integer
+          permissions[canacceptnewmembers]:
+            type: integer
+    GroupAnnouncementsCreate:
+        required:
+          - sessionID
+        type: object
+        properties:
+          sessionID:
+            type: string
+          action:
+            type: string
+            description: Example - "post"
+          languages[0][headline]:
+            type: string
+          languages[0][body]:
+            type: string
+          languages[1][headline]:
+            type: string
+          languages[1][body]:
+            type: string
+          languages[1][updated]:
+            type: string
+          languages[2][headline]:
+            type: string
+          languages[2][body]:
+            type: string
+          languages[2][updated]:
+            type: string
+          languages[3][headline]:
+            type: string
+          languages[3][body]:
+            type: string
+          languages[3][updated]:
+            type: string
+          languages[4][headline]:
+            type: string
+          languages[4][body]:
+            type: string
+          languages[4][updated]:
+            type: string
+          languages[5][headline]:
+            type: string
+          languages[5][body]:
+            type: string
+          languages[5][updated]:
+            type: string
+          languages[6][headline]:
+            type: string
+          languages[6][body]:
+            type: string
+          languages[6][updated]:
+            type: string
+          languages[7][headline]:
+            type: string
+          languages[7][body]:
+            type: string
+          languages[7][updated]:
+            type: string
+          languages[8][headline]:
+            type: string
+          languages[8][body]:
+            type: string
+          languages[8][updated]:
+            type: string
+          languages[9][headline]:
+            type: string
+          languages[9][body]:
+            type: string
+          languages[9][updated]:
+            type: string
+          headline:
+            type: string
+            description: Example - "Новое объявление"
+          body:
+            type: string
+            description: Example - "Описание"
+          youtubeurl:
+            type: string
+          previewVideoInsertType:
+            type: string
+            description: Example - "leftthumb"
+    UploadImage:
+      type: object
+      required:
+        - avatar
+        - sessionid
+        - gId
+        - type
+      properties:
+        MAX_FILE_SIZE:
+          type: integer
+        type:
+          type: number
+          description: Тип, указанный в query params (group_avatar_image)
+        gId:
+          type: string
+          description: Example - 103582791474312655
+        sessionid:
+          type: string
+        doSub:
+          type: integer
+        avatar:
+          type: string
+          format: binary
+    HtmlResponse:
+      type: string
+      example: '<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>'
+
   securitySchemes:
-    bearerAuth:
-      type: http
-      description: JWT Authorization header using the Bearer scheme.
-      scheme: bearer
-      bearerFormat: JWT
+    timezoneOffset:
+      type: apiKey
+      in: cookie
+      name: timezoneOffset
+    cookieSettings:
+      type: apiKey
+      in: cookie
+      name: cookieSettings
+    browserid:
+      type: apiKey
+      in: cookie
+      name: browserid
+    steamCountry:
+      type: apiKey
+      in: cookie
+      name: steamCountry
+    steamLoginSecure:
+      description: JWT Токен пользователя
+      type: apiKey 
+      in: cookie
+      name: steamLoginSecure
+    strInventoryLastContext:
+      type: apiKey
+      in: cookie
+      name: strInventoryLastContext
+    sessionid:
+      type: apiKey
+      in: header
+      name: sessionid
 security:
-  - bearerAuth: []
+  - timezoneOffset: []
+  - cookieSettings: []
+  - browserid: []
+  - steamCountry: []
+  - steamLoginSecure: []
+  - strInventoryLastContext: []
+  - sessionid: []
