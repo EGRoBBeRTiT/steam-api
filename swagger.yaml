@@ -7,9 +7,13 @@ servers:
   - url: https://steamcommunity.com
 tags:
   - name: Group
-    description: Все для работы с группами
+    description: Работа с группой в целом
+  - name: GroupPermisiions
+    description: Апи для работы с разрешениями группы
+  - name: GroupAnnouncements
+    description: Апи для работы с объявлениями группы
   - name: FileUploader
-    description: Загрузка изображжений
+    description: Загрузка изображений
 paths:
   /actions/GroupCreate:
     post:
@@ -81,7 +85,7 @@ paths:
   /groups/{groupLink}/permissionsEdit:
     get:
       tags:
-        - Group
+        - GroupPermisiions
       summary: Получить страницу с разрещениями группы
       parameters:
         - in: path
@@ -100,7 +104,7 @@ paths:
                 $ref: '#/components/schemas/HtmlResponse'
     post:
       tags:
-        - Group
+        - GroupPermisiions
       summary: Редактировать разрешения группы
       parameters:
         - in: path
@@ -125,7 +129,7 @@ paths:
   /groups/{groupLink}/announcements:
     post:
       tags:
-        - Group
+        - GroupAnnouncements
       summary: Создать/Редактировать объявление в группе
       parameters:
         - in: path
@@ -146,7 +150,7 @@ paths:
   /groups/{groupLink}/announcements/delete/{announcementId}:
     get:
       tags:
-        - Group
+        - GroupAnnouncements
       summary: УДАЛИТЬ объявление
       parameters:
         - in: path
@@ -175,7 +179,7 @@ paths:
   /groups/{groupLink}/announcements/listing:
     get:
       tags:
-        - Group
+        - GroupAnnouncements
       summary: Получить список объявлений
       parameters:
         - in: path
