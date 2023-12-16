@@ -1349,6 +1349,11 @@
         "type": "apiKey",
         "in": "header",
         "name": "sessionid"
+      },
+      "cookie": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Cookie"
       }
     }
   },
@@ -1373,6 +1378,9 @@
     },
     {
       "sessionid": []
+    },
+    {
+      "cookie": []
     }
   ]
 }

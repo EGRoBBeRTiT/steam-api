@@ -893,6 +893,11 @@ components:
       type: apiKey
       in: header
       name: sessionid
+    cookie:
+      type: apiKey
+      in: header
+      name: Cookie
+
 security:
   - timezoneOffset: []
   - cookieSettings: []
@@ -901,3 +906,4 @@ security:
   - steamLoginSecure: []
   - strInventoryLastContext: []
   - sessionid: []
+  - cookie: []
