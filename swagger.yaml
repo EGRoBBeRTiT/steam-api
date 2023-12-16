@@ -12,6 +12,10 @@ tags:
     description: Апи для работы с разрешениями группы
   - name: GroupAnnouncements
     description: Апи для работы с объявлениями группы
+  - name: GroupDiscussions
+    description: Апи для работы с обсуждениями группы
+  - name: GroupComments
+    description: Апи для работы с комментариями группы
   - name: FileUploader
     description: Загрузка изображений
 paths:
@@ -168,7 +172,7 @@ paths:
           description: Айди объявления
           example: 3904122044547675673
         - in: query
-          name: sessionID
+          name: sessionid
           schema:
             type: string
           example: 034163d4525f49b02747008a
@@ -201,6 +205,308 @@ paths:
             text/html; charset=UTF-8: 
               schema:
                 $ref: '#/components/schemas/HtmlResponse'
+  /groups/{groupLink}/announcements/rate/{announcementId}:
+    post:
+      tags:
+        - GroupAnnouncements
+      summary: Оценить объявления
+      parameters:
+        - in: path
+          name: groupLink
+          schema:
+            type: string
+          required: true
+          description: Ссылка группы, которая указывалась при создании
+          example: robber-vk
+        - in: path
+          name: announcementId
+          schema:
+            type: string
+          required: true
+          description: Айди объявления
+          example: 3904122044547711879
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+                $ref: '#/components/schemas/GroupAnnouncementsRate'
+      responses:
+        '200':
+          description: Страница с объявлениями
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/RateResponse'
+        '400':
+          description: Неверные параметры запроса
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/RateResponseError'
+  /groups/{groupLink}/announcements/detail/{announcementId}:
+    get:
+      tags:
+        - GroupAnnouncements
+      summary: Получить подробную информацию об объявлении
+      parameters:
+        - in: path
+          name: groupLink
+          schema:
+            type: string
+          required: true
+          description: Ссылка группы, которая указывалась при создании
+          example: robber-vk
+        - in: path
+          name: announcementId
+          schema:
+            type: string
+          required: true
+          description: Айди объявления
+          example: 3904122044547711879
+      responses:
+        '200':
+          description: Страница с объявлениями
+          content:
+            text/html; charset=UTF-8: 
+              schema:
+                $ref: '#/components/schemas/HtmlResponse'
+  /comment/ClanAnnouncement/post/{clanAnnouncementId}/{announcementId}/:
+    post:
+      tags:
+        - GroupAnnouncements
+      summary: Оставить комментарий у объявления
+      parameters:
+        - in: path
+          name: announcementId
+          schema:
+            type: string
+          required: true
+          description: Айди объявления
+          example: 3904122044547711879
+        - in: path
+          name: clanAnnouncementId
+          schema:
+            type: string
+          required: true
+          description: Айди клана объявления (?!)
+          example: 103582791474312655
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+                $ref: '#/components/schemas/GroupAnnouncementsComment'
+      responses:
+        '200':
+          description: Страница с объявлениями
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommentResponse'
+  /comment/ClanAnnouncement/delete/{clanAnnouncementId}/{announcementId}/:
+    post:
+      tags:
+        - GroupAnnouncements
+      summary: Удалить комментарий у объявления
+      parameters:
+        - in: path
+          name: announcementId
+          schema:
+            type: string
+          required: true
+          description: Айди объявления
+          example: 3904122044547711879
+        - in: path
+          name: clanAnnouncementId
+          schema:
+            type: string
+          required: true
+          description: Айди клана объявления (?!)
+          example: 103582791474312655
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+                $ref: '#/components/schemas/GroupAnnouncementsCommentDelete'
+      responses:
+        '200':
+          description: Страница с объявлениями
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommentResponse'
+  /comment/ClanAnnouncement/subscribe/{clanAnnouncementId}/{announcementId}/:
+    post:
+      tags:
+        - GroupAnnouncements
+      summary: Подписаться на комментарий
+      parameters:
+        - in: path
+          name: announcementId
+          schema:
+            type: string
+          required: true
+          description: Айди объявления
+          example: 3904122044547711879
+        - in: path
+          name: clanAnnouncementId
+          schema:
+            type: string
+          required: true
+          description: Айди клана объявления (?!)
+          example: 103582791474312655
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+                $ref: '#/components/schemas/GroupAnnouncementsCommentDelete'
+      responses:
+        '200':
+          description: Страница с объявлениями
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/RateResponse'
+  /groups/{groupLink}/discussions:
+    get:
+      tags:
+        - GroupDiscussions
+      summary: Получить список обсуждений группы
+      parameters:
+        - in: path
+          name: groupLink
+          schema:
+            type: string
+          required: true
+          description: Ссылка группы, которая указывалась при создании
+          example: robber-vk
+      responses:
+        '200':
+          description: Страница с обсуждениями
+          content:
+            text/html; charset=UTF-8: 
+              schema:
+                $ref: '#/components/schemas/HtmlResponse'
+  /groups/{groupLink}/comments:
+    get:
+      tags:
+        - GroupComments
+      summary: Получить страницу со списком комментариев группы
+      parameters:
+        - in: query
+          name: content_only
+          schema:
+            type: boolean
+          example: true
+        - in: path
+          name: groupLink
+          schema:
+            type: string
+          required: true
+          description: Ссылка группы, которая указывалась при создании
+          example: robber-vk
+      responses:
+        '200':
+          description: Страница с объявлениями
+          content:
+            text/html; charset=UTF-8: 
+              schema:
+                $ref: '#/components/schemas/HtmlResponse'
+  /comment/Clan/post/{clanId}/{feature2}:
+    post:
+      tags:
+        - GroupComments
+      summary: Оставить комментарий у группы
+      parameters:
+        - in: path
+          name: clanId
+          schema:
+            type: string
+          required: true
+          description: Айди клана, который есть у группы
+          example: 103582791474312655
+        - in: path
+          name: feature2
+          schema:
+            type: integer
+          required: true
+          description: То же что и в теле запроса
+          example: -1
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+                $ref: '#/components/schemas/GroupAnnouncementsComment'
+      responses:
+        '200':
+          description: Страница с объявлениями
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommentResponse'
+  /comment/Clan/subscribe/{clanId}/{feature2}:
+    post:
+      tags:
+        - GroupComments
+      summary: Подписаться на комментарий
+      parameters:
+        - in: path
+          name: clanId
+          schema:
+            type: string
+          required: true
+          description: Айди клана, который есть у группы
+          example: 103582791474312655
+        - in: path
+          name: feature2
+          schema:
+            type: integer
+          required: true
+          description: То же что и в теле запроса
+          example: -1
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+                $ref: '#/components/schemas/GroupAnnouncementsCommentDelete'
+      responses:
+        '200':
+          description: Страница с объявлениями
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/RateResponse'
+  /comment/Clan/delete/{clanId}/{feature2}:
+    post:
+      tags:
+        - GroupComments
+      summary: Удалить комментарий группы
+      parameters:
+        - in: path
+          name: clanId
+          schema:
+            type: string
+          required: true
+          description: Айди клана, который есть у группы
+          example: 103582791474312655
+        - in: path
+          name: feature2
+          schema:
+            type: integer
+          required: true
+          description: То же что и в теле запроса
+          example: -1
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+                $ref: '#/components/schemas/GroupAnnouncementsCommentDelete'
+      responses:
+        '200':
+          description: Страница с объявлениями
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommentResponse'
 
           
   /actions/FileUploader:
@@ -254,14 +560,14 @@ components:
   schemas:
     GroupCreate:
       required:
-        - sessionID
+        - sessionid
         - step
         - groupName
         - abbreviation
         - groupLink
       type: object
       properties:
-        sessionID:
+        sessionid:
           type: string
           example: /sdfvfdvfdv
         step:
@@ -272,12 +578,94 @@ components:
           type: string
         groupLink:
           type: string
+    GroupAnnouncementsRate:
+      required:
+        - sessionid
+        - voteup
+        - clanid
+      type: object
+      properties:
+        sessionid:
+          type: string
+        voteup:
+          type: boolean
+          description: Лайк/Дизлайк
+        clanid:
+          type: string
+          description: У группы есть clanid
+    GroupAnnouncementsComment:
+      required:
+        - sessionid
+        - comment
+        - count
+        - feature2
+      type: object
+      properties:
+        sessionid:
+          type: string
+          description: "Example: f6092c5e482bc515735cce93"
+        comment:
+          type: string
+        count:
+          type: integer
+          description: "10"
+        feature2:
+          type: integer
+          description: "-2"
+    GroupAnnouncementsCommentDelete:
+      required:
+        - sessionid
+        - count
+        - feature2
+        - gidcomment
+        - start
+      type: object
+      properties:
+        sessionid:
+          type: string
+        start:
+          type: integer
+          description: "0"
+        count:
+          type: integer
+          description: "10"
+        feature2:
+          type: integer
+          description: "-2"
+        gidcomment:
+          type: integer
+          description: "4041481833166210450"
+    CommentResponse:
+      type: object
+      properties:
+        comments_html:
+          type: string
+          example: "\t\t\r\n\t\r\n\t<div data-panel=\"{&quot;flow-children&quot;:&quot;row&quot;,&quot;type&quot;:&quot;PanelGroup&quot;}\" class=\"commentthread_comment responsive_body_text   \" id=\"comment_4041481833166177636\" style=\"\">\r\n\t\t\t\t<div class=\"commentthread_comment_avatar playerAvatar offline\">\r\n\t\t\t\t\t\t<a href=\"https://steamcommunity.com/profiles/76561198264589950\" data-miniprofile=\"304324222\">\r\n\t\t\t\t\t\t\t\t\t<img src=\"https://avatars.cloudflare.steamstatic.com/8dfa58472e03895b031f5e685080fa750a82f432.jpg\" srcset=\"https://avatars.cloudflare.steamstatic.com/8dfa58472e03895b031f5e685080fa750a82f432.jpg 1x, https://avatars.cloudflare.steamstatic.com/8dfa58472e03895b031f5e685080fa750a82f432_medium.jpg 2x\">\t\t\t\t\t\t\t</a>\r\n\t\t</div>\r\n\t\t<div class=\"commentthread_comment_content\">\r\n\t\t\t<div data-panel=\"{&quot;flow-children&quot;:&quot;row&quot;}\" class=\"commentthread_comment_author\">\r\n\t\t\t\t<a class=\"hoverunderline commentthread_author_link\" href=\"https://steamcommunity.com/profiles/76561198264589950\"  data-miniprofile=\"304324222\">\r\n\t\t\t\t\t<bdi>ROB</bdi></a>\r\n\r\n\t\t\t\t\r\n\t\t\t\t<img width=\"12\" height=\"12\" src=\"https://community.cloudflare.steamstatic.com/public/images/skin_1/comment_modindicator_officer.png\" title=\"Офицер\">\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t<span class=\"commentthread_comment_timestamp\" title=\"16 декабря 2023 в 16:37:47 MSK\" data-timestamp=\"1702733867\">\r\n\t\t\t\t\tТолько что&nbsp;\r\n\t\t\t\t</span>\r\n\t\t\t\t\t\t\t\t<div class=\"commentthread_comment_actions\" >\r\n\t\t\t\t\t<a class=\"actionlink\" data-tooltip-text=\"Удалить\" href=\"javascript:CCommentThread.DeleteComment( 'ClanAnnouncement_103582791474312655_3904122044547711879', '4041481833166177636'  );\"><img src=\"https://community.cloudflare.steamstatic.com/public/images/skin_1/notification_icon_trash_bright.png?v=1\" ></a>\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"commentthread_comment_text\" id=\"comment_content_4041481833166177636\">\r\n\t\t\t\tКоммент\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\r\n\t\r\n\t<div data-panel=\"{&quot;flow-children&quot;:&quot;row&quot;,&quot;type&quot;:&quot;PanelGroup&quot;}\" class=\"commentthread_comment responsive_body_text   \" id=\"comment_4041481833166084973\" style=\"\">\r\n\t\t\t\t<div class=\"commentthread_comment_avatar playerAvatar offline\">\r\n\t\t\t\t\t\t<a href=\"https://steamcommunity.com/profiles/76561198264589950\" data-miniprofile=\"304324222\">\r\n\t\t\t\t\t\t\t\t\t<img src=\"https://avatars.cloudflare.steamstatic.com/8dfa58472e03895b031f5e685080fa750a82f432.jpg\" srcset=\"https://avatars.cloudflare.steamstatic.com/8dfa58472e03895b031f5e685080fa750a82f432.jpg 1x, https://avatars.cloudflare.steamstatic.com/8dfa58472e03895b031f5e685080fa750a82f432_medium.jpg 2x\">\t\t\t\t\t\t\t</a>\r\n\t\t</div>\r\n\t\t<div class=\"commentthread_comment_content\">\r\n\t\t\t<div data-panel=\"{&quot;flow-children&quot;:&quot;row&quot;}\" class=\"commentthread_comment_author\">\r\n\t\t\t\t<a class=\"hoverunderline commentthread_author_link\" href=\"https://steamcommunity.com/profiles/76561198264589950\"  data-miniprofile=\"304324222\">\r\n\t\t\t\t\t<bdi>ROB</bdi></a>\r\n\r\n\t\t\t\t\r\n\t\t\t\t<img width=\"12\" height=\"12\" src=\"https://community.cloudflare.steamstatic.com/public/images/skin_1/comment_modindicator_officer.png\" title=\"Офицер\">\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t<span class=\"commentthread_comment_timestamp\" title=\"16 декабря 2023 в 16:01:23 MSK\" data-timestamp=\"1702731683\">\r\n\t\t\t\t\t36 мин. назад&nbsp;\r\n\t\t\t\t</span>\r\n\t\t\t\t\t\t\t\t<div class=\"commentthread_comment_actions\" >\r\n\t\t\t\t\t<a class=\"actionlink\" data-tooltip-text=\"Удалить\" href=\"javascript:CCommentThread.DeleteComment( 'ClanAnnouncement_103582791474312655_3904122044547711879', '4041481833166084973'  );\"><img src=\"https://community.cloudflare.steamstatic.com/public/images/skin_1/notification_icon_trash_bright.png?v=1\" ></a>\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"commentthread_comment_text\" id=\"comment_content_4041481833166084973\">\r\n\t\t\t\tКоммент\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t</div>\r\n"
+        has_upvoted:
+          type: integer
+        name:
+          type: string
+          example: "ClanAnnouncement_103582791474312655_3904122044547711879"
+        pagesize:
+          type: string
+        start:
+          type: integer
+        success:
+          type: boolean
+        timelastpost:
+          type: integer
+        total_count:
+          type: integer
+        upvotes:
+          type: integer
+        error:
+          type: string
     GroupEdit:
         required:
-          - sessionID
+          - sessionid
         type: object
         properties:
-          sessionID:
+          sessionid:
             type: string
           type:
             type: string
@@ -305,10 +693,10 @@ components:
             type: string
     GroupPermissionsEdit:
         required:
-          - sessionID
+          - sessionid
         type: object
         properties:
-          sessionID:
+          sessionid:
             type: string
           groupType:
             type: string
@@ -347,10 +735,10 @@ components:
             type: integer
     GroupAnnouncementsCreate:
         required:
-          - sessionID
+          - sessionid
         type: object
         properties:
-          sessionID:
+          sessionid:
             type: string
           action:
             type: string
@@ -447,6 +835,22 @@ components:
         avatar:
           type: string
           format: binary
+    RateResponse:
+      type: object
+      required:
+        - success
+      properties:
+        success:
+          type: integer
+          example: 1
+    RateResponseError:
+      type: object
+      required:
+        - success
+      properties:
+        success:
+          type: integer
+          example: 8
     HtmlResponse:
       type: string
       example: '<!DOCTYPE html>
