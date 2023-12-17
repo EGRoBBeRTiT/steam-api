@@ -39,9 +39,7 @@
   "paths": {
     "/actions/GroupCreate": {
       "post": {
-        "tags": [
-          "Group"
-        ],
+        "tags": ["Group"],
         "summary": "Создание группы",
         "requestBody": {
           "content": {
@@ -72,9 +70,7 @@
     },
     "/groups/{groupLink}/edit/profile": {
       "post": {
-        "tags": [
-          "Group"
-        ],
+        "tags": ["Group"],
         "summary": "Редактирование группы",
         "parameters": [
           {
@@ -114,9 +110,7 @@
     },
     "/groups/{groupLink}": {
       "get": {
-        "tags": [
-          "Group"
-        ],
+        "tags": ["Group"],
         "summary": "Получение страницы с группой",
         "parameters": [
           {
@@ -146,9 +140,7 @@
     },
     "/groups/{groupLink}/permissionsEdit": {
       "get": {
-        "tags": [
-          "GroupPermisiions"
-        ],
+        "tags": ["GroupPermisiions"],
         "summary": "Получить страницу с разрещениями группы",
         "parameters": [
           {
@@ -176,9 +168,7 @@
         }
       },
       "post": {
-        "tags": [
-          "GroupPermisiions"
-        ],
+        "tags": ["GroupPermisiions"],
         "summary": "Редактировать разрешения группы",
         "parameters": [
           {
@@ -217,9 +207,7 @@
     },
     "/groups/{groupLink}/announcements": {
       "post": {
-        "tags": [
-          "GroupAnnouncements"
-        ],
+        "tags": ["GroupAnnouncements"],
         "summary": "Создать/Редактировать объявление в группе",
         "parameters": [
           {
@@ -251,9 +239,7 @@
     },
     "/groups/{groupLink}/announcements/delete/{announcementId}": {
       "get": {
-        "tags": [
-          "GroupAnnouncements"
-        ],
+        "tags": ["GroupAnnouncements"],
         "summary": "УДАЛИТЬ объявление",
         "parameters": [
           {
@@ -295,9 +281,7 @@
     },
     "/groups/{groupLink}/announcements/listing": {
       "get": {
-        "tags": [
-          "GroupAnnouncements"
-        ],
+        "tags": ["GroupAnnouncements"],
         "summary": "Получить список объявлений",
         "parameters": [
           {
@@ -335,9 +319,7 @@
     },
     "/groups/{groupLink}/announcements/rate/{announcementId}": {
       "post": {
-        "tags": [
-          "GroupAnnouncements"
-        ],
+        "tags": ["GroupAnnouncements"],
         "summary": "Оценить объявления",
         "parameters": [
           {
@@ -396,9 +378,7 @@
     },
     "/groups/{groupLink}/announcements/detail/{announcementId}": {
       "get": {
-        "tags": [
-          "GroupAnnouncements"
-        ],
+        "tags": ["GroupAnnouncements"],
         "summary": "Получить подробную информацию об объявлении",
         "parameters": [
           {
@@ -438,9 +418,7 @@
     },
     "/comment/ClanAnnouncement/post/{clanAnnouncementId}/{announcementId}/": {
       "post": {
-        "tags": [
-          "GroupAnnouncements"
-        ],
+        "tags": ["GroupAnnouncements"],
         "summary": "Оставить комментарий у объявления",
         "parameters": [
           {
@@ -489,9 +467,7 @@
     },
     "/comment/ClanAnnouncement/delete/{clanAnnouncementId}/{announcementId}/": {
       "post": {
-        "tags": [
-          "GroupAnnouncements"
-        ],
+        "tags": ["GroupAnnouncements"],
         "summary": "Удалить комментарий у объявления",
         "parameters": [
           {
@@ -540,9 +516,7 @@
     },
     "/comment/ClanAnnouncement/subscribe/{clanAnnouncementId}/{announcementId}/": {
       "post": {
-        "tags": [
-          "GroupAnnouncements"
-        ],
+        "tags": ["GroupAnnouncements"],
         "summary": "Подписаться на комментарий",
         "parameters": [
           {
@@ -591,9 +565,7 @@
     },
     "/groups/{groupLink}/discussions": {
       "get": {
-        "tags": [
-          "GroupDiscussions"
-        ],
+        "tags": ["GroupDiscussions"],
         "summary": "Получить список обсуждений группы",
         "parameters": [
           {
@@ -623,9 +595,7 @@
     },
     "/groups/{groupLink}/comments": {
       "get": {
-        "tags": [
-          "GroupComments"
-        ],
+        "tags": ["GroupComments"],
         "summary": "Получить страницу со списком комментариев группы",
         "parameters": [
           {
@@ -663,9 +633,7 @@
     },
     "/comment/Clan/post/{clanId}/{feature2}": {
       "post": {
-        "tags": [
-          "GroupComments"
-        ],
+        "tags": ["GroupComments"],
         "summary": "Оставить комментарий у группы",
         "parameters": [
           {
@@ -714,9 +682,7 @@
     },
     "/comment/Clan/subscribe/{clanId}/{feature2}": {
       "post": {
-        "tags": [
-          "GroupComments"
-        ],
+        "tags": ["GroupComments"],
         "summary": "Подписаться на комментарий",
         "parameters": [
           {
@@ -765,9 +731,7 @@
     },
     "/comment/Clan/delete/{clanId}/{feature2}": {
       "post": {
-        "tags": [
-          "GroupComments"
-        ],
+        "tags": ["GroupComments"],
         "summary": "Удалить комментарий группы",
         "parameters": [
           {
@@ -816,9 +780,7 @@
     },
     "/actions/FileUploader": {
       "post": {
-        "tags": [
-          "FileUploader"
-        ],
+        "tags": ["FileUploader"],
         "summary": "Загрузка изображений",
         "parameters": [
           {
@@ -913,11 +875,7 @@
         }
       },
       "GroupAnnouncementsRate": {
-        "required": [
-          "sessionid",
-          "voteup",
-          "clanid"
-        ],
+        "required": ["sessionid", "voteup", "clanid"],
         "type": "object",
         "properties": {
           "sessionid": {
@@ -934,12 +892,7 @@
         }
       },
       "GroupAnnouncementsComment": {
-        "required": [
-          "sessionid",
-          "comment",
-          "count",
-          "feature2"
-        ],
+        "required": ["sessionid", "comment", "count", "feature2"],
         "type": "object",
         "properties": {
           "sessionid": {
@@ -960,13 +913,7 @@
         }
       },
       "GroupAnnouncementsCommentDelete": {
-        "required": [
-          "sessionid",
-          "count",
-          "feature2",
-          "gidcomment",
-          "start"
-        ],
+        "required": ["sessionid", "count", "feature2", "gidcomment", "start"],
         "type": "object",
         "properties": {
           "sessionid": {
@@ -1028,9 +975,7 @@
         }
       },
       "GroupEdit": {
-        "required": [
-          "sessionid"
-        ],
+        "required": ["sessionid"],
         "type": "object",
         "properties": {
           "sessionid": {
@@ -1073,9 +1018,7 @@
         }
       },
       "GroupPermissionsEdit": {
-        "required": [
-          "sessionid"
-        ],
+        "required": ["sessionid"],
         "type": "object",
         "properties": {
           "sessionid": {
@@ -1136,9 +1079,7 @@
         }
       },
       "GroupAnnouncementsCreate": {
-        "required": [
-          "sessionid"
-        ],
+        "required": ["sessionid"],
         "type": "object",
         "properties": {
           "sessionid": {
@@ -1254,12 +1195,7 @@
       },
       "UploadImage": {
         "type": "object",
-        "required": [
-          "avatar",
-          "sessionid",
-          "gId",
-          "type"
-        ],
+        "required": ["avatar", "sessionid", "gId", "type"],
         "properties": {
           "MAX_FILE_SIZE": {
             "type": "integer"
@@ -1286,9 +1222,7 @@
       },
       "RateResponse": {
         "type": "object",
-        "required": [
-          "success"
-        ],
+        "required": ["success"],
         "properties": {
           "success": {
             "type": "integer",
@@ -1298,9 +1232,7 @@
       },
       "RateResponseError": {
         "type": "object",
-        "required": [
-          "success"
-        ],
+        "required": ["success"],
         "properties": {
           "success": {
             "type": "integer",

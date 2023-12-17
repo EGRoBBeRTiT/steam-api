@@ -12,371 +12,29 @@
   ],
   "tags": [
     {
-      "name": "Group",
-      "description": "Работа с группой в целом"
+      "name": "Object",
+      "description": "Апи для работы с предметами"
     },
     {
-      "name": "GroupPermisiions",
-      "description": "Апи для работы с разрешениями группы"
-    },
-    {
-      "name": "GroupAnnouncements",
-      "description": "Апи для работы с объявлениями группы"
-    },
-    {
-      "name": "GroupDiscussions",
-      "description": "Апи для работы с обсуждениями группы"
-    },
-    {
-      "name": "GroupComments",
-      "description": "Апи для работы с комментариями группы"
-    },
-    {
-      "name": "FileUploader",
-      "description": "Загрузка изображений"
+      "name": "Lots",
+      "description": "Апи для работы с лотами"
     }
   ],
   "paths": {
-    "/actions/GroupCreate": {
-      "post": {
-        "tags": [
-          "Group"
-        ],
-        "summary": "Создание группы",
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "$ref": "#/components/schemas/GroupCreate"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/html; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/HtmlResponse"
-                }
-              }
-            }
-          },
-          "302": {
-            "description": "Перенаправление, если step = 2 на"
-          }
-        }
-      }
-    },
-    "/groups/{groupLink}/edit/profile": {
-      "post": {
-        "tags": [
-          "Group"
-        ],
-        "summary": "Редактирование группы",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "groupLink",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Ссылка группы, которая указывалась при создании",
-            "example": "robber-vk"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "$ref": "#/components/schemas/GroupEdit"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/html; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/HtmlResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/groups/{groupLink}": {
+    "/object/list": {
       "get": {
         "tags": [
-          "Group"
+          "Object"
         ],
-        "summary": "Получение страницы с группой",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "groupLink",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Ссылка группы, которая указывалась при создании",
-            "example": "robber-vk"
-          }
-        ],
+        "summary": "Получить список предметов",
+        "description": "Возвращает список предметов пользователя по его айди из куки",
         "responses": {
           "200": {
-            "description": "Success",
-            "content": {
-              "text/html; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/HtmlResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/groups/{groupLink}/permissionsEdit": {
-      "get": {
-        "tags": [
-          "GroupPermisiions"
-        ],
-        "summary": "Получить страницу с разрещениями группы",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "groupLink",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Ссылка группы, которая указывалась при создании",
-            "example": "robber-vk"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/html; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/HtmlResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "GroupPermisiions"
-        ],
-        "summary": "Редактировать разрешения группы",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "groupLink",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Ссылка группы, которая указывалась при создании",
-            "example": "robber-vk"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "$ref": "#/components/schemas/GroupPermissionsEdit"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/html; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/HtmlResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/groups/{groupLink}/announcements": {
-      "post": {
-        "tags": [
-          "GroupAnnouncements"
-        ],
-        "summary": "Создать/Редактировать объявление в группе",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "groupLink",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Ссылка группы, которая указывалась при создании",
-            "example": "robber-vk"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "$ref": "#/components/schemas/GroupAnnouncementsCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "302": {
-            "description": "Перенаправляет на страницу с объявлениями"
-          }
-        }
-      }
-    },
-    "/groups/{groupLink}/announcements/delete/{announcementId}": {
-      "get": {
-        "tags": [
-          "GroupAnnouncements"
-        ],
-        "summary": "УДАЛИТЬ объявление",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "groupLink",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Ссылка группы, которая указывалась при создании",
-            "example": "robber-vk"
-          },
-          {
-            "in": "path",
-            "name": "announcementId",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Айди объявления",
-            "example": 3904122044547675600
-          },
-          {
-            "in": "query",
-            "name": "sessionid",
-            "schema": {
-              "type": "string"
-            },
-            "example": "034163d4525f49b02747008a",
-            "required": true
-          }
-        ],
-        "responses": {
-          "302": {
-            "description": "Перенаправляет на страницу с объявлениями"
-          }
-        }
-      }
-    },
-    "/groups/{groupLink}/announcements/listing": {
-      "get": {
-        "tags": [
-          "GroupAnnouncements"
-        ],
-        "summary": "Получить список объявлений",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "groupLink",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Ссылка группы, которая указывалась при создании",
-            "example": "robber-vk"
-          },
-          {
-            "in": "query",
-            "name": "content_only",
-            "schema": {
-              "type": "boolean"
-            },
-            "example": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Страница с объявлениями",
-            "content": {
-              "text/html; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/HtmlResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/groups/{groupLink}/announcements/rate/{announcementId}": {
-      "post": {
-        "tags": [
-          "GroupAnnouncements"
-        ],
-        "summary": "Оценить объявления",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "groupLink",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Ссылка группы, которая указывалась при создании",
-            "example": "robber-vk"
-          },
-          {
-            "in": "path",
-            "name": "announcementId",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Айди объявления",
-            "example": 3904122044547712000
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "$ref": "#/components/schemas/GroupAnnouncementsRate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Страница с объявлениями",
+            "description": "Запрос прошел успешно",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
-                  "$ref": "#/components/schemas/RateResponse"
+                  "$ref": "#/components/schemas/ObjectsResponse"
                 }
               }
             }
@@ -386,7 +44,17 @@
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
-                  "$ref": "#/components/schemas/RateResponseError"
+                  "$ref": "#/components/schemas/CommonResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Не прошла авторизация",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
@@ -394,41 +62,52 @@
         }
       }
     },
-    "/groups/{groupLink}/announcements/detail/{announcementId}": {
+    "/object/{objectId}": {
       "get": {
         "tags": [
-          "GroupAnnouncements"
+          "Object"
         ],
-        "summary": "Получить подробную информацию об объявлении",
+        "summary": "Получить предмет",
+        "description": "Возвращает предмет по айди",
         "parameters": [
           {
             "in": "path",
-            "name": "groupLink",
+            "name": "objectId",
             "schema": {
               "type": "string"
             },
             "required": true,
-            "description": "Ссылка группы, которая указывалась при создании",
-            "example": "robber-vk"
-          },
-          {
-            "in": "path",
-            "name": "announcementId",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Айди объявления",
-            "example": 3904122044547712000
+            "description": "Айди предмета",
+            "example": 4543435452354
           }
         ],
         "responses": {
           "200": {
-            "description": "Страница с объявлениями",
+            "description": "Запрос прошел успешно",
             "content": {
-              "text/html; charset=UTF-8": {
+              "application/json; charset=utf-8": {
                 "schema": {
-                  "$ref": "#/components/schemas/HtmlResponse"
+                  "$ref": "#/components/schemas/ObjectsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверные параметры запроса",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Не прошла авторизация",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
@@ -436,50 +115,50 @@
         }
       }
     },
-    "/comment/ClanAnnouncement/post/{clanAnnouncementId}/{announcementId}/": {
+    "/object/buy": {
       "post": {
         "tags": [
-          "GroupAnnouncements"
+          "Object"
         ],
-        "summary": "Оставить комментарий у объявления",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "announcementId",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Айди объявления",
-            "example": 3904122044547712000
-          },
-          {
-            "in": "path",
-            "name": "clanAnnouncementId",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Айди клана объявления (?!)",
-            "example": 103582791474312660
-          }
-        ],
+        "summary": "Купить предмет",
+        "description": "Возвращает предмет по айди",
         "requestBody": {
+          "required": true,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GroupAnnouncementsComment"
+                "$ref": "#/components/schemas/ObjectId"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Страница с объявлениями",
+            "description": "Запрос прошел успешно",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
-                  "$ref": "#/components/schemas/CommentResponse"
+                  "$ref": "#/components/schemas/ObjectsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверные параметры запроса",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Не прошла авторизация",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
@@ -487,101 +166,49 @@
         }
       }
     },
-    "/comment/ClanAnnouncement/delete/{clanAnnouncementId}/{announcementId}/": {
+    "/lots/create": {
       "post": {
         "tags": [
-          "GroupAnnouncements"
+          "Lots"
         ],
-        "summary": "Удалить комментарий у объявления",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "announcementId",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Айди объявления",
-            "example": 3904122044547712000
-          },
-          {
-            "in": "path",
-            "name": "clanAnnouncementId",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Айди клана объявления (?!)",
-            "example": 103582791474312660
-          }
-        ],
+        "summary": "Оценить объявления",
         "requestBody": {
+          "required": true,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/GroupAnnouncementsCommentDelete"
+                "$ref": "#/components/schemas/LotCreate"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Страница с объявлениями",
+            "description": "Создание прошло успешно",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
-                  "$ref": "#/components/schemas/CommentResponse"
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/comment/ClanAnnouncement/subscribe/{clanAnnouncementId}/{announcementId}/": {
-      "post": {
-        "tags": [
-          "GroupAnnouncements"
-        ],
-        "summary": "Подписаться на комментарий",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "announcementId",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Айди объявления",
-            "example": 3904122044547712000
           },
-          {
-            "in": "path",
-            "name": "clanAnnouncementId",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Айди клана объявления (?!)",
-            "example": 103582791474312660
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "$ref": "#/components/schemas/GroupAnnouncementsCommentDelete"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Страница с объявлениями",
+          "400": {
+            "description": "Неверные параметры запроса",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
-                  "$ref": "#/components/schemas/RateResponse"
+                  "$ref": "#/components/schemas/CommonResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Не прошла авторизация",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
@@ -589,31 +216,40 @@
         }
       }
     },
-    "/groups/{groupLink}/discussions": {
+    "/lots/list": {
       "get": {
         "tags": [
-          "GroupDiscussions"
+          "Lots"
         ],
-        "summary": "Получить список обсуждений группы",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "groupLink",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Ссылка группы, которая указывалась при создании",
-            "example": "robber-vk"
-          }
-        ],
+        "summary": "Получить список лотов",
+        "description": "Возвращает список лотов пользователя по его айди из куки",
         "responses": {
           "200": {
-            "description": "Страница с обсуждениями",
+            "description": "Запрос прошел успешно",
             "content": {
-              "text/html; charset=UTF-8": {
+              "application/json; charset=utf-8": {
                 "schema": {
-                  "$ref": "#/components/schemas/HtmlResponse"
+                  "$ref": "#/components/schemas/LotResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверные параметры запроса",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Не прошла авторизация",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
@@ -621,192 +257,52 @@
         }
       }
     },
-    "/groups/{groupLink}/comments": {
+    "/lots/{lotId}": {
       "get": {
         "tags": [
-          "GroupComments"
+          "Lots"
         ],
-        "summary": "Получить страницу со списком комментариев группы",
+        "summary": "Получить лот",
+        "description": "Возвращает информацию об одно лоте",
         "parameters": [
           {
-            "in": "query",
-            "name": "content_only",
-            "schema": {
-              "type": "boolean"
-            },
-            "example": true
-          },
-          {
             "in": "path",
-            "name": "groupLink",
+            "name": "lotId",
             "schema": {
               "type": "string"
             },
             "required": true,
-            "description": "Ссылка группы, которая указывалась при создании",
-            "example": "robber-vk"
+            "description": "Айди лота",
+            "example": 4543435452354
           }
         ],
         "responses": {
           "200": {
-            "description": "Страница с объявлениями",
-            "content": {
-              "text/html; charset=UTF-8": {
-                "schema": {
-                  "$ref": "#/components/schemas/HtmlResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/comment/Clan/post/{clanId}/{feature2}": {
-      "post": {
-        "tags": [
-          "GroupComments"
-        ],
-        "summary": "Оставить комментарий у группы",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "clanId",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Айди клана, который есть у группы",
-            "example": 103582791474312660
-          },
-          {
-            "in": "path",
-            "name": "feature2",
-            "schema": {
-              "type": "integer"
-            },
-            "required": true,
-            "description": "То же что и в теле запроса",
-            "example": -1
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "$ref": "#/components/schemas/GroupAnnouncementsComment"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Страница с объявлениями",
+            "description": "Запрос прошел успешно",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
-                  "$ref": "#/components/schemas/CommentResponse"
+                  "$ref": "#/components/schemas/LotResponse"
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/comment/Clan/subscribe/{clanId}/{feature2}": {
-      "post": {
-        "tags": [
-          "GroupComments"
-        ],
-        "summary": "Подписаться на комментарий",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "clanId",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Айди клана, который есть у группы",
-            "example": 103582791474312660
           },
-          {
-            "in": "path",
-            "name": "feature2",
-            "schema": {
-              "type": "integer"
-            },
-            "required": true,
-            "description": "То же что и в теле запроса",
-            "example": -1
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "$ref": "#/components/schemas/GroupAnnouncementsCommentDelete"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Страница с объявлениями",
+          "400": {
+            "description": "Неверные параметры запроса",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
-                  "$ref": "#/components/schemas/RateResponse"
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/comment/Clan/delete/{clanId}/{feature2}": {
-      "post": {
-        "tags": [
-          "GroupComments"
-        ],
-        "summary": "Удалить комментарий группы",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "clanId",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "Айди клана, который есть у группы",
-            "example": 103582791474312660
           },
-          {
-            "in": "path",
-            "name": "feature2",
-            "schema": {
-              "type": "integer"
-            },
-            "required": true,
-            "description": "То же что и в теле запроса",
-            "example": -1
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "$ref": "#/components/schemas/GroupAnnouncementsCommentDelete"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Страница с объявлениями",
+          "403": {
+            "description": "Не прошла авторизация",
             "content": {
               "application/json; charset=utf-8": {
                 "schema": {
-                  "$ref": "#/components/schemas/CommentResponse"
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
@@ -814,66 +310,204 @@
         }
       }
     },
-    "/actions/FileUploader": {
-      "post": {
+    "/lots/history": {
+      "get": {
         "tags": [
-          "FileUploader"
+          "Lots"
         ],
-        "summary": "Загрузка изображений",
-        "parameters": [
-          {
-            "in": "query",
-            "name": "type",
-            "schema": {
-              "type": "string"
-            },
-            "description": "Тип места, куда будет загружена картинка",
-            "example": "group_avatar_image"
-          },
-          {
-            "in": "query",
-            "name": "gId",
-            "schema": {
-              "type": "string"
-            },
-            "description": "Айдишник",
-            "example": 103582791474666000
-          },
-          {
-            "in": "query",
-            "name": "bgColor",
-            "schema": {
-              "type": "string"
-            },
-            "description": "Код цвета для фона (!?)",
-            "example": "1b2838"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "$ref": "#/components/schemas/UploadImage"
+        "summary": "Получить историю лотов",
+        "description": "Возвращает информацию истории лотов (операции)",
+        "responses": {
+          "200": {
+            "description": "Запрос прошел успешно",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/LotHistory"
+                }
               }
             }
           },
-          "required": true
+          "400": {
+            "description": "Неверные параметры запроса",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Не прошла авторизация",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lots/confirm": {
+      "post": {
+        "tags": [
+          "Lots"
+        ],
+        "summary": "Подтвердить создание лота",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LotCreate"
+              }
+            }
+          }
         },
         "responses": {
           "200": {
-            "description": "Success",
-            "headers": {
-              "Set-Cookie": {
-                "description": "Contains the session cookie named `COOKIE-NAME`. Pass this cookie back in subsequent requests.\n",
+            "description": "Создание прошло успешно",
+            "content": {
+              "application/json; charset=utf-8": {
                 "schema": {
-                  "type": "string"
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
-            },
+            }
+          },
+          "400": {
+            "description": "Неверные параметры запроса",
             "content": {
-              "text/html; charset=UTF-8": {
+              "application/json; charset=utf-8": {
                 "schema": {
-                  "$ref": "#/components/schemas/HtmlResponse"
+                  "$ref": "#/components/schemas/CommonResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Не прошла авторизация",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lots/{lotId}/update": {
+      "patch": {
+        "tags": [
+          "Lots"
+        ],
+        "summary": "Изменить цену лота",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lotId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Айди лота",
+            "example": 4543435452354
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LotUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Изменение прошло успешно",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверные параметры запроса",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Не прошла авторизация",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lots/{lotId}/delete": {
+      "delete": {
+        "tags": [
+          "Lots"
+        ],
+        "summary": "Удалить лот",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lotId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Айди лота",
+            "example": 4543435452354
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Удаление прошло успешно",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверные параметры запроса",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Не прошла авторизация",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommonResponse"
                 }
               }
             }
@@ -884,433 +518,182 @@
   },
   "components": {
     "schemas": {
-      "GroupCreate": {
+      "ObjectId": {
         "required": [
-          "sessionid",
-          "step",
-          "groupName",
-          "abbreviation",
-          "groupLink"
+          "objectId"
         ],
         "type": "object",
         "properties": {
-          "sessionid": {
+          "objectId": {
             "type": "string",
-            "example": "/sdfvfdvfdv"
+            "description": "Айди предмета"
+          }
+        }
+      },
+      "LotCreate": {
+        "required": [
+          "objectId",
+          "price"
+        ],
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string",
+            "description": "Айди предмета"
           },
-          "step": {
+          "price": {
+            "type": "integer",
+            "description": "Цена предмета"
+          }
+        }
+      },
+      "LotUpdate": {
+        "required": [
+          "price"
+        ],
+        "type": "object",
+        "properties": {
+          "price": {
+            "type": "integer",
+            "description": "Цена предмета"
+          }
+        }
+      },
+      "LotResponse": {
+        "required": [
+          "price"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "price": {
+                  "type": "number"
+                },
+                "onjectId": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "totalCount": {
             "type": "number"
           },
-          "groupName": {
-            "type": "string"
-          },
-          "abbreviation": {
-            "type": "string"
-          },
-          "groupLink": {
-            "type": "string"
-          }
-        }
-      },
-      "GroupAnnouncementsRate": {
-        "required": [
-          "sessionid",
-          "voteup",
-          "clanid"
-        ],
-        "type": "object",
-        "properties": {
-          "sessionid": {
-            "type": "string"
-          },
-          "voteup": {
-            "type": "boolean",
-            "description": "Лайк/Дизлайк"
-          },
-          "clanid": {
-            "type": "string",
-            "description": "У группы есть clanid"
-          }
-        }
-      },
-      "GroupAnnouncementsComment": {
-        "required": [
-          "sessionid",
-          "comment",
-          "count",
-          "feature2"
-        ],
-        "type": "object",
-        "properties": {
-          "sessionid": {
-            "type": "string",
-            "description": "Example: f6092c5e482bc515735cce93"
-          },
-          "comment": {
-            "type": "string"
-          },
-          "count": {
-            "type": "integer",
-            "description": "10"
-          },
-          "feature2": {
-            "type": "integer",
-            "description": "-2"
-          }
-        }
-      },
-      "GroupAnnouncementsCommentDelete": {
-        "required": [
-          "sessionid",
-          "count",
-          "feature2",
-          "gidcomment",
-          "start"
-        ],
-        "type": "object",
-        "properties": {
-          "sessionid": {
-            "type": "string"
-          },
-          "start": {
-            "type": "integer",
-            "description": "0"
-          },
-          "count": {
-            "type": "integer",
-            "description": "10"
-          },
-          "feature2": {
-            "type": "integer",
-            "description": "-2"
-          },
-          "gidcomment": {
-            "type": "integer",
-            "description": "4041481833166210450"
-          }
-        }
-      },
-      "CommentResponse": {
-        "type": "object",
-        "properties": {
-          "comments_html": {
-            "type": "string",
-            "example": "\t\t\r\n\t\r\n\t<div data-panel=\"{&quot;flow-children&quot;:&quot;row&quot;,&quot;type&quot;:&quot;PanelGroup&quot;}\" class=\"commentthread_comment responsive_body_text   \" id=\"comment_4041481833166177636\" style=\"\">\r\n\t\t\t\t<div class=\"commentthread_comment_avatar playerAvatar offline\">\r\n\t\t\t\t\t\t<a href=\"https://steamcommunity.com/profiles/76561198264589950\" data-miniprofile=\"304324222\">\r\n\t\t\t\t\t\t\t\t\t<img src=\"https://avatars.cloudflare.steamstatic.com/8dfa58472e03895b031f5e685080fa750a82f432.jpg\" srcset=\"https://avatars.cloudflare.steamstatic.com/8dfa58472e03895b031f5e685080fa750a82f432.jpg 1x, https://avatars.cloudflare.steamstatic.com/8dfa58472e03895b031f5e685080fa750a82f432_medium.jpg 2x\">\t\t\t\t\t\t\t</a>\r\n\t\t</div>\r\n\t\t<div class=\"commentthread_comment_content\">\r\n\t\t\t<div data-panel=\"{&quot;flow-children&quot;:&quot;row&quot;}\" class=\"commentthread_comment_author\">\r\n\t\t\t\t<a class=\"hoverunderline commentthread_author_link\" href=\"https://steamcommunity.com/profiles/76561198264589950\"  data-miniprofile=\"304324222\">\r\n\t\t\t\t\t<bdi>ROB</bdi></a>\r\n\r\n\t\t\t\t\r\n\t\t\t\t<img width=\"12\" height=\"12\" src=\"https://community.cloudflare.steamstatic.com/public/images/skin_1/comment_modindicator_officer.png\" title=\"Офицер\">\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t<span class=\"commentthread_comment_timestamp\" title=\"16 декабря 2023 в 16:37:47 MSK\" data-timestamp=\"1702733867\">\r\n\t\t\t\t\tТолько что&nbsp;\r\n\t\t\t\t</span>\r\n\t\t\t\t\t\t\t\t<div class=\"commentthread_comment_actions\" >\r\n\t\t\t\t\t<a class=\"actionlink\" data-tooltip-text=\"Удалить\" href=\"javascript:CCommentThread.DeleteComment( 'ClanAnnouncement_103582791474312655_3904122044547711879', '4041481833166177636'  );\"><img src=\"https://community.cloudflare.steamstatic.com/public/images/skin_1/notification_icon_trash_bright.png?v=1\" ></a>\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"commentthread_comment_text\" id=\"comment_content_4041481833166177636\">\r\n\t\t\t\tКоммент\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\r\n\t\r\n\t<div data-panel=\"{&quot;flow-children&quot;:&quot;row&quot;,&quot;type&quot;:&quot;PanelGroup&quot;}\" class=\"commentthread_comment responsive_body_text   \" id=\"comment_4041481833166084973\" style=\"\">\r\n\t\t\t\t<div class=\"commentthread_comment_avatar playerAvatar offline\">\r\n\t\t\t\t\t\t<a href=\"https://steamcommunity.com/profiles/76561198264589950\" data-miniprofile=\"304324222\">\r\n\t\t\t\t\t\t\t\t\t<img src=\"https://avatars.cloudflare.steamstatic.com/8dfa58472e03895b031f5e685080fa750a82f432.jpg\" srcset=\"https://avatars.cloudflare.steamstatic.com/8dfa58472e03895b031f5e685080fa750a82f432.jpg 1x, https://avatars.cloudflare.steamstatic.com/8dfa58472e03895b031f5e685080fa750a82f432_medium.jpg 2x\">\t\t\t\t\t\t\t</a>\r\n\t\t</div>\r\n\t\t<div class=\"commentthread_comment_content\">\r\n\t\t\t<div data-panel=\"{&quot;flow-children&quot;:&quot;row&quot;}\" class=\"commentthread_comment_author\">\r\n\t\t\t\t<a class=\"hoverunderline commentthread_author_link\" href=\"https://steamcommunity.com/profiles/76561198264589950\"  data-miniprofile=\"304324222\">\r\n\t\t\t\t\t<bdi>ROB</bdi></a>\r\n\r\n\t\t\t\t\r\n\t\t\t\t<img width=\"12\" height=\"12\" src=\"https://community.cloudflare.steamstatic.com/public/images/skin_1/comment_modindicator_officer.png\" title=\"Офицер\">\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t\r\n\t\t\t\t<span class=\"commentthread_comment_timestamp\" title=\"16 декабря 2023 в 16:01:23 MSK\" data-timestamp=\"1702731683\">\r\n\t\t\t\t\t36 мин. назад&nbsp;\r\n\t\t\t\t</span>\r\n\t\t\t\t\t\t\t\t<div class=\"commentthread_comment_actions\" >\r\n\t\t\t\t\t<a class=\"actionlink\" data-tooltip-text=\"Удалить\" href=\"javascript:CCommentThread.DeleteComment( 'ClanAnnouncement_103582791474312655_3904122044547711879', '4041481833166084973'  );\"><img src=\"https://community.cloudflare.steamstatic.com/public/images/skin_1/notification_icon_trash_bright.png?v=1\" ></a>\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"commentthread_comment_text\" id=\"comment_content_4041481833166084973\">\r\n\t\t\t\tКоммент\t\t\t</div>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t</div>\r\n"
-          },
-          "has_upvoted": {
-            "type": "integer"
-          },
-          "name": {
-            "type": "string",
-            "example": "ClanAnnouncement_103582791474312655_3904122044547711879"
-          },
-          "pagesize": {
-            "type": "string"
-          },
-          "start": {
-            "type": "integer"
-          },
-          "success": {
-            "type": "boolean"
-          },
-          "timelastpost": {
-            "type": "integer"
-          },
-          "total_count": {
-            "type": "integer"
-          },
-          "upvotes": {
-            "type": "integer"
+          "statusCode": {
+            "type": "number",
+            "example": 200
           },
           "error": {
-            "type": "string"
+            "type": "string",
+            "example": "Error!"
           }
         }
       },
-      "GroupEdit": {
+      "ObjectsResponse": {
         "required": [
-          "sessionid"
+          "price"
         ],
         "type": "object",
         "properties": {
-          "sessionid": {
-            "type": "string"
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "image": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "gameId": {
+                  "type": "string",
+                  "description": "Предмет привязан к игре"
+                }
+              }
+            }
           },
-          "type": {
-            "type": "string",
-            "description": "Example - \"profileSave\""
+          "totalCount": {
+            "type": "number"
           },
-          "abbreviation": {
-            "type": "string"
-          },
-          "customURL": {
-            "type": "string"
-          },
-          "headline": {
-            "type": "string"
-          },
-          "summary": {
-            "type": "string"
-          },
-          "language": {
-            "type": "string"
-          },
-          "country": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "city": {
-            "type": "string"
-          },
-          "associate_game": {
-            "type": "string"
-          },
-          "favorite_games": {
-            "type": "string"
-          }
-        }
-      },
-      "GroupPermissionsEdit": {
-        "required": [
-          "sessionid"
-        ],
-        "type": "object",
-        "properties": {
-          "sessionid": {
-            "type": "string"
-          },
-          "groupType": {
-            "type": "string",
-            "description": "Example - \"private\""
-          },
-          "permissions[caneditprops]": {
-            "type": "integer"
-          },
-          "permissions[canmakeofficer]": {
-            "type": "integer"
-          },
-          "permissions[canschedule]": {
-            "type": "integer"
-          },
-          "permissions[canannounce]": {
-            "type": "integer"
-          },
-          "permissions[canpotw]": {
-            "type": "integer"
-          },
-          "permissions[cankickmembers]": {
-            "type": "integer"
-          },
-          "permissions[cancurateapps]": {
-            "type": "integer"
-          },
-          "permissions[canclaimoffers]": {
-            "type": "integer"
-          },
-          "permissions[canbroadcast]": {
-            "type": "integer"
-          },
-          "permissions[canchataccess]": {
-            "type": "integer"
-          },
-          "permissions[canchatkick]": {
-            "type": "integer"
-          },
-          "permissions[canchatban]": {
-            "type": "integer"
-          },
-          "permissions[canchatinvite]": {
-            "type": "integer"
-          },
-          "permissions[canpostcomments]": {
-            "type": "integer"
-          },
-          "permissions[candeletecomments]": {
-            "type": "integer"
-          },
-          "permissions[canacceptnewmembers]": {
-            "type": "integer"
-          }
-        }
-      },
-      "GroupAnnouncementsCreate": {
-        "required": [
-          "sessionid"
-        ],
-        "type": "object",
-        "properties": {
-          "sessionid": {
-            "type": "string"
-          },
-          "action": {
-            "type": "string",
-            "description": "Example - \"post\""
-          },
-          "languages[0][headline]": {
-            "type": "string"
-          },
-          "languages[0][body]": {
-            "type": "string"
-          },
-          "languages[1][headline]": {
-            "type": "string"
-          },
-          "languages[1][body]": {
-            "type": "string"
-          },
-          "languages[1][updated]": {
-            "type": "string"
-          },
-          "languages[2][headline]": {
-            "type": "string"
-          },
-          "languages[2][body]": {
-            "type": "string"
-          },
-          "languages[2][updated]": {
-            "type": "string"
-          },
-          "languages[3][headline]": {
-            "type": "string"
-          },
-          "languages[3][body]": {
-            "type": "string"
-          },
-          "languages[3][updated]": {
-            "type": "string"
-          },
-          "languages[4][headline]": {
-            "type": "string"
-          },
-          "languages[4][body]": {
-            "type": "string"
-          },
-          "languages[4][updated]": {
-            "type": "string"
-          },
-          "languages[5][headline]": {
-            "type": "string"
-          },
-          "languages[5][body]": {
-            "type": "string"
-          },
-          "languages[5][updated]": {
-            "type": "string"
-          },
-          "languages[6][headline]": {
-            "type": "string"
-          },
-          "languages[6][body]": {
-            "type": "string"
-          },
-          "languages[6][updated]": {
-            "type": "string"
-          },
-          "languages[7][headline]": {
-            "type": "string"
-          },
-          "languages[7][body]": {
-            "type": "string"
-          },
-          "languages[7][updated]": {
-            "type": "string"
-          },
-          "languages[8][headline]": {
-            "type": "string"
-          },
-          "languages[8][body]": {
-            "type": "string"
-          },
-          "languages[8][updated]": {
-            "type": "string"
-          },
-          "languages[9][headline]": {
-            "type": "string"
-          },
-          "languages[9][body]": {
-            "type": "string"
-          },
-          "languages[9][updated]": {
-            "type": "string"
-          },
-          "headline": {
-            "type": "string",
-            "description": "Example - \"Новое объявление\""
-          },
-          "body": {
-            "type": "string",
-            "description": "Example - \"Описание\""
-          },
-          "youtubeurl": {
-            "type": "string"
-          },
-          "previewVideoInsertType": {
-            "type": "string",
-            "description": "Example - \"leftthumb\""
-          }
-        }
-      },
-      "UploadImage": {
-        "type": "object",
-        "required": [
-          "avatar",
-          "sessionid",
-          "gId",
-          "type"
-        ],
-        "properties": {
-          "MAX_FILE_SIZE": {
-            "type": "integer"
-          },
-          "type": {
+          "statusCode": {
             "type": "number",
-            "description": "Тип, указанный в query params (group_avatar_image)"
+            "example": 200
           },
-          "gId": {
+          "error": {
             "type": "string",
-            "description": "Example - 103582791474312655"
-          },
-          "sessionid": {
-            "type": "string"
-          },
-          "doSub": {
-            "type": "integer"
-          },
-          "avatar": {
-            "type": "string",
-            "format": "binary"
+            "example": "Error!"
           }
         }
       },
-      "RateResponse": {
+      "LotHistory": {
+        "required": [
+          "price"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "lot": {
+                  "type": "object",
+                  "properties": {
+                    "price": {
+                      "type": "number"
+                    },
+                    "onjectId": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "atcion": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "date": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "totalCount": {
+            "type": "number"
+          },
+          "statusCode": {
+            "type": "number",
+            "example": 200
+          },
+          "error": {
+            "type": "string",
+            "example": "Error!"
+          }
+        }
+      },
+      "CommonResponse": {
         "type": "object",
         "required": [
           "success"
         ],
         "properties": {
-          "success": {
-            "type": "integer",
-            "example": 1
+          "statusCode": {
+            "type": "number",
+            "example": 200
+          },
+          "error": {
+            "type": "string",
+            "example": "Error!"
           }
         }
-      },
-      "RateResponseError": {
-        "type": "object",
-        "required": [
-          "success"
-        ],
-        "properties": {
-          "success": {
-            "type": "integer",
-            "example": 8
-          }
-        }
-      },
-      "HtmlResponse": {
-        "type": "string",
-        "example": "<!DOCTYPE html> <html lang=\"en\"> <head> <meta charset=\"UTF-8\" /> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" /> <title>Document</title> </head> <body></body> </html>"
       }
     },
     "securitySchemes": {
