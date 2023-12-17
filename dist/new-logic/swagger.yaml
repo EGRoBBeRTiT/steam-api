@@ -10,6 +10,8 @@ tags:
     description: Апи для работы с предметами
   - name: Lots
     description: Апи для работы с лотами
+  - name: WishObject
+    description: ------NEW!!!------- Апи для работы с желаемыми предметами
 paths:
   /object/list:
     get:
@@ -65,6 +67,12 @@ paths:
                 $ref: '#/components/schemas/CommonResponse'
         '403':
           description: Не прошла авторизация
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '404':
+          description: Предмет не найден
           content:
             application/json; charset=utf-8: 
               schema:
@@ -184,6 +192,12 @@ paths:
                 $ref: '#/components/schemas/CommonResponse'
         '403':
           description: Не прошла авторизация
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '404':
+          description: Лот не найден
           content:
             application/json; charset=utf-8: 
               schema:
@@ -313,8 +327,244 @@ paths:
             application/json; charset=utf-8: 
               schema:
                 $ref: '#/components/schemas/CommonResponse'
+  /object/interests:
+    post:
+      tags:
+        - WishObject
+      summary: Добавить предмет, которым интересовался польователь
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/ObjectId'
+      responses:
+        '200':
+          description: Создание прошло успешно
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          description: Неверные параметры запроса
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '403':
+          description: Не прошла авторизация
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+  /object/interests/list:
+    get:
+      tags:
+        - WishObject
+      summary: Получить список предметов, которыми интересуется пользователь
+      description: При запросе отправляются куки, из которых можно узнать id пользователя
+      responses:
+        '200':
+          description: Запрос прошел успешно
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/ObjectResponse'
+        '403':
+          description: Не прошла авторизация
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+  /object/interests/{objectId}:
+    get:
+      tags:
+        - WishObject
+      summary: Получить конкретный предмет, которым интересовался пользьзователь
+      description: При запросе отправляются куки, из которых можно узнать id пользователя
+      parameters:
+        - in: path
+          name: objectId
+          schema:
+            type: string
+          required: true
+          description: Айди предметы
+          example: 4543435452354
+      responses:
+        '200':
+          description: Запрос прошел успешно
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/ObjectResponse'
+        '403':
+          description: Не прошла авторизация
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '404':
+          description: Предмет не найден
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+  /object/interests/{objectId}/delete:
+    delete:
+      tags:
+        - WishObject
+      summary: Удалить предмет из списка интересующимися
+      parameters:
+        - in: path
+          name: objectId
+          schema:
+            type: string
+          required: true
+          description: Айди предмета
+          example: 4543435452354
+      responses:
+        '200':
+          description: Создание прошло успешно
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          description: Неверные параметры запроса
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '403':
+          description: Не прошла авторизация
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+  /object/wish:
+    post:
+      tags:
+        - WishObject
+      summary: Добавить предмет в список желаемых пользователя
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/ObjectInterestId'
+      responses:
+        '200':
+          description: Запрос прошел успешно
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          description: Неверные параметры запроса
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '403':
+          description: Не прошла авторизация
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+  /object/wish/list:
+    get:
+      tags:
+        - WishObject
+      summary: Получить список желаемых предметов
+      description: При запросе отправляются куки, из которых можно узнать id пользователя
+      responses:
+        '200':
+          description: Запрос прошел успешно
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/ObjectResponse'
+        '403':
+          description: Не прошла авторизация
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+  /object/wish/{objectId}:
+    get:
+      tags:
+        - WishObject
+      summary: Получить конкретный предмет из виш листа
+      description: При запросе отправляются куки, из которых можно узнать id пользователя
+      parameters:
+        - in: path
+          name: objectId
+          schema:
+            type: string
+          required: true
+          description: Айди предмета из виш листа
+          example: 4543435452354
+      responses:
+        '200':
+          description: Запрос прошел успешно
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/ObjectResponse'
+        '403':
+          description: Не прошла авторизация
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '404':
+          description: Предмет не найден
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+  /object/wish/{objectId}/delete:
+    delete:
+      tags:
+        - WishObject
+      summary: Удалить предмет из списка желаемых
+      parameters:
+        - in: path
+          name: objectId
+          schema:
+            type: string
+          required: true
+          description: Айди предмета
+          example: 4543435452354
+      responses:
+        '200':
+          description: Создание прошло успешно
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '400':
+          description: Неверные параметры запроса
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
+        '403':
+          description: Не прошла авторизация
+          content:
+            application/json; charset=utf-8: 
+              schema:
+                $ref: '#/components/schemas/CommonResponse'
 components:
   schemas:
+    ObjectInterestId:
+      required:
+        - objectInterestId
+      type: object
+      properties:
+        objectId:
+          type: string
+          description: Айди предмета, которым интересовался пользователь
     ObjectId:
       required:
         - objectId
@@ -414,6 +664,30 @@ components:
               description:
                 type: string
               date:
+                type: string
+        totalCount:
+          type: number
+        statusCode:
+          type: number
+          example: 200
+        error:
+          type: string
+          example: "Error!"
+    ObjectResponse:
+      required:
+        - price
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              image_url:
+                type: string
+              description:
+                type: string
+              title:
                 type: string
         totalCount:
           type: number

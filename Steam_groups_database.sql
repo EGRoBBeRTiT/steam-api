@@ -9,7 +9,7 @@ CREATE TABLE "Groups" (
   "link" string,
   "language" string,
   "country" string,
-  "avatar" string,
+  "avatar_url" string,
   "associate_game" string[],
   "favorite_games" string[],
   "admin_id" integer
