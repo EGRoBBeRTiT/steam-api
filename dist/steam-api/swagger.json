@@ -39,7 +39,9 @@
   "paths": {
     "/actions/GroupCreate": {
       "post": {
-        "tags": ["Group"],
+        "tags": [
+          "Group"
+        ],
         "summary": "Создание группы",
         "requestBody": {
           "content": {
@@ -64,13 +66,18 @@
           },
           "302": {
             "description": "Перенаправление, если step = 2 на"
+          },
+          "500": {
+            "description": "Ошибка сервера"
           }
         }
       }
     },
     "/groups/{groupLink}/edit/profile": {
       "post": {
-        "tags": ["Group"],
+        "tags": [
+          "Group"
+        ],
         "summary": "Редактирование группы",
         "parameters": [
           {
@@ -104,13 +111,18 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Ошибка сервера"
           }
         }
       }
     },
     "/groups/{groupLink}": {
       "get": {
-        "tags": ["Group"],
+        "tags": [
+          "Group"
+        ],
         "summary": "Получение страницы с группой",
         "parameters": [
           {
@@ -134,13 +146,18 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Ошибка сервера"
           }
         }
       }
     },
     "/groups/{groupLink}/permissionsEdit": {
       "get": {
-        "tags": ["GroupPermisiions"],
+        "tags": [
+          "GroupPermisiions"
+        ],
         "summary": "Получить страницу с разрещениями группы",
         "parameters": [
           {
@@ -164,11 +181,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Ошибка сервера"
           }
         }
       },
       "post": {
-        "tags": ["GroupPermisiions"],
+        "tags": [
+          "GroupPermisiions"
+        ],
         "summary": "Редактировать разрешения группы",
         "parameters": [
           {
@@ -201,13 +223,18 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Ошибка сервера"
           }
         }
       }
     },
     "/groups/{groupLink}/announcements": {
       "post": {
-        "tags": ["GroupAnnouncements"],
+        "tags": [
+          "GroupAnnouncements"
+        ],
         "summary": "Создать/Редактировать объявление в группе",
         "parameters": [
           {
@@ -233,13 +260,18 @@
         "responses": {
           "302": {
             "description": "Перенаправляет на страницу с объявлениями"
+          },
+          "500": {
+            "description": "Ошибка сервера"
           }
         }
       }
     },
     "/groups/{groupLink}/announcements/delete/{announcementId}": {
       "get": {
-        "tags": ["GroupAnnouncements"],
+        "tags": [
+          "GroupAnnouncements"
+        ],
         "summary": "УДАЛИТЬ объявление",
         "parameters": [
           {
@@ -275,13 +307,18 @@
         "responses": {
           "302": {
             "description": "Перенаправляет на страницу с объявлениями"
+          },
+          "500": {
+            "description": "Ошибка сервера"
           }
         }
       }
     },
     "/groups/{groupLink}/announcements/listing": {
       "get": {
-        "tags": ["GroupAnnouncements"],
+        "tags": [
+          "GroupAnnouncements"
+        ],
         "summary": "Получить список объявлений",
         "parameters": [
           {
@@ -313,13 +350,18 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Ошибка сервера"
           }
         }
       }
     },
     "/groups/{groupLink}/announcements/rate/{announcementId}": {
       "post": {
-        "tags": ["GroupAnnouncements"],
+        "tags": [
+          "GroupAnnouncements"
+        ],
         "summary": "Оценить объявления",
         "parameters": [
           {
@@ -372,13 +414,18 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Ошибка сервера"
           }
         }
       }
     },
     "/groups/{groupLink}/announcements/detail/{announcementId}": {
       "get": {
-        "tags": ["GroupAnnouncements"],
+        "tags": [
+          "GroupAnnouncements"
+        ],
         "summary": "Получить подробную информацию об объявлении",
         "parameters": [
           {
@@ -418,7 +465,9 @@
     },
     "/comment/ClanAnnouncement/post/{clanAnnouncementId}/{announcementId}/": {
       "post": {
-        "tags": ["GroupAnnouncements"],
+        "tags": [
+          "GroupAnnouncements"
+        ],
         "summary": "Оставить комментарий у объявления",
         "parameters": [
           {
@@ -461,13 +510,18 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Ошибка сервера"
           }
         }
       }
     },
     "/comment/ClanAnnouncement/delete/{clanAnnouncementId}/{announcementId}/": {
       "post": {
-        "tags": ["GroupAnnouncements"],
+        "tags": [
+          "GroupAnnouncements"
+        ],
         "summary": "Удалить комментарий у объявления",
         "parameters": [
           {
@@ -510,13 +564,18 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Ошибка сервера"
           }
         }
       }
     },
     "/comment/ClanAnnouncement/subscribe/{clanAnnouncementId}/{announcementId}/": {
       "post": {
-        "tags": ["GroupAnnouncements"],
+        "tags": [
+          "GroupAnnouncements"
+        ],
         "summary": "Подписаться на комментарий",
         "parameters": [
           {
@@ -559,13 +618,18 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Ошибка сервера"
           }
         }
       }
     },
     "/groups/{groupLink}/discussions": {
       "get": {
-        "tags": ["GroupDiscussions"],
+        "tags": [
+          "GroupDiscussions"
+        ],
         "summary": "Получить список обсуждений группы",
         "parameters": [
           {
@@ -589,13 +653,18 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Ошибка сервера"
           }
         }
       }
     },
     "/groups/{groupLink}/comments": {
       "get": {
-        "tags": ["GroupComments"],
+        "tags": [
+          "GroupComments"
+        ],
         "summary": "Получить страницу со списком комментариев группы",
         "parameters": [
           {
@@ -627,13 +696,18 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Ошибка сервера"
           }
         }
       }
     },
     "/comment/Clan/post/{clanId}/{feature2}": {
       "post": {
-        "tags": ["GroupComments"],
+        "tags": [
+          "GroupComments"
+        ],
         "summary": "Оставить комментарий у группы",
         "parameters": [
           {
@@ -676,13 +750,18 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Ошибка сервера"
           }
         }
       }
     },
     "/comment/Clan/subscribe/{clanId}/{feature2}": {
       "post": {
-        "tags": ["GroupComments"],
+        "tags": [
+          "GroupComments"
+        ],
         "summary": "Подписаться на комментарий",
         "parameters": [
           {
@@ -725,13 +804,18 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Ошибка сервера"
           }
         }
       }
     },
     "/comment/Clan/delete/{clanId}/{feature2}": {
       "post": {
-        "tags": ["GroupComments"],
+        "tags": [
+          "GroupComments"
+        ],
         "summary": "Удалить комментарий группы",
         "parameters": [
           {
@@ -774,13 +858,18 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Ошибка сервера"
           }
         }
       }
     },
     "/actions/FileUploader": {
       "post": {
-        "tags": ["FileUploader"],
+        "tags": [
+          "FileUploader"
+        ],
         "summary": "Загрузка изображений",
         "parameters": [
           {
@@ -839,6 +928,9 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Ошибка сервера"
           }
         }
       }
@@ -875,7 +967,11 @@
         }
       },
       "GroupAnnouncementsRate": {
-        "required": ["sessionid", "voteup", "clanid"],
+        "required": [
+          "sessionid",
+          "voteup",
+          "clanid"
+        ],
         "type": "object",
         "properties": {
           "sessionid": {
@@ -892,7 +988,12 @@
         }
       },
       "GroupAnnouncementsComment": {
-        "required": ["sessionid", "comment", "count", "feature2"],
+        "required": [
+          "sessionid",
+          "comment",
+          "count",
+          "feature2"
+        ],
         "type": "object",
         "properties": {
           "sessionid": {
@@ -913,7 +1014,13 @@
         }
       },
       "GroupAnnouncementsCommentDelete": {
-        "required": ["sessionid", "count", "feature2", "gidcomment", "start"],
+        "required": [
+          "sessionid",
+          "count",
+          "feature2",
+          "gidcomment",
+          "start"
+        ],
         "type": "object",
         "properties": {
           "sessionid": {
@@ -975,7 +1082,9 @@
         }
       },
       "GroupEdit": {
-        "required": ["sessionid"],
+        "required": [
+          "sessionid"
+        ],
         "type": "object",
         "properties": {
           "sessionid": {
@@ -1018,7 +1127,9 @@
         }
       },
       "GroupPermissionsEdit": {
-        "required": ["sessionid"],
+        "required": [
+          "sessionid"
+        ],
         "type": "object",
         "properties": {
           "sessionid": {
@@ -1079,7 +1190,9 @@
         }
       },
       "GroupAnnouncementsCreate": {
-        "required": ["sessionid"],
+        "required": [
+          "sessionid"
+        ],
         "type": "object",
         "properties": {
           "sessionid": {
@@ -1195,7 +1308,12 @@
       },
       "UploadImage": {
         "type": "object",
-        "required": ["avatar", "sessionid", "gId", "type"],
+        "required": [
+          "avatar",
+          "sessionid",
+          "gId",
+          "type"
+        ],
         "properties": {
           "MAX_FILE_SIZE": {
             "type": "integer"
@@ -1222,7 +1340,9 @@
       },
       "RateResponse": {
         "type": "object",
-        "required": ["success"],
+        "required": [
+          "success"
+        ],
         "properties": {
           "success": {
             "type": "integer",
@@ -1232,7 +1352,9 @@
       },
       "RateResponseError": {
         "type": "object",
-        "required": ["success"],
+        "required": [
+          "success"
+        ],
         "properties": {
           "success": {
             "type": "integer",

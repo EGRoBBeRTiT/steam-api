@@ -39,6 +39,8 @@ paths:
             text/html; charset=UTF-8: 
               schema:
                 $ref: '#/components/schemas/HtmlResponse'
+        '500':
+          description: Ошибка сервера
   /groups/{groupLink}/edit/profile:
     post:
       tags:
@@ -65,6 +67,8 @@ paths:
             text/html; charset=UTF-8: 
               schema:
                 $ref: '#/components/schemas/HtmlResponse'
+        '500':
+          description: Ошибка сервера
             
   /groups/{groupLink}:
     get:
@@ -86,6 +90,8 @@ paths:
             text/html; charset=UTF-8: 
               schema:
                 $ref: '#/components/schemas/HtmlResponse'
+        '500':
+          description: Ошибка сервера
   /groups/{groupLink}/permissionsEdit:
     get:
       tags:
@@ -106,6 +112,8 @@ paths:
             text/html; charset=UTF-8: 
               schema:
                 $ref: '#/components/schemas/HtmlResponse'
+        '500':
+          description: Ошибка сервера
     post:
       tags:
         - GroupPermisiions
@@ -130,6 +138,8 @@ paths:
             text/html; charset=UTF-8: 
               schema:
                 $ref: '#/components/schemas/HtmlResponse'
+        '500':
+          description: Ошибка сервера
   /groups/{groupLink}/announcements:
     post:
       tags:
@@ -151,6 +161,8 @@ paths:
       responses:
         '302':
           description: Перенаправляет на страницу с объявлениями
+        '500':
+          description: Ошибка сервера
   /groups/{groupLink}/announcements/delete/{announcementId}:
     get:
       tags:
@@ -180,6 +192,8 @@ paths:
       responses:
         '302':
           description: Перенаправляет на страницу с объявлениями
+        '500':
+          description: Ошибка сервера
   /groups/{groupLink}/announcements/listing:
     get:
       tags:
@@ -205,6 +219,8 @@ paths:
             text/html; charset=UTF-8: 
               schema:
                 $ref: '#/components/schemas/HtmlResponse'
+        '500':
+          description: Ошибка сервера
   /groups/{groupLink}/announcements/rate/{announcementId}:
     post:
       tags:
@@ -243,6 +259,8 @@ paths:
             application/json; charset=utf-8: 
               schema:
                 $ref: '#/components/schemas/RateResponseError'
+        '500':
+          description: Ошибка сервера
   /groups/{groupLink}/announcements/detail/{announcementId}:
     get:
       tags:
@@ -302,6 +320,8 @@ paths:
             application/json; charset=utf-8: 
               schema:
                 $ref: '#/components/schemas/CommentResponse'
+        '500':
+          description: Ошибка сервера
   /comment/ClanAnnouncement/delete/{clanAnnouncementId}/{announcementId}/:
     post:
       tags:
@@ -334,6 +354,8 @@ paths:
             application/json; charset=utf-8: 
               schema:
                 $ref: '#/components/schemas/CommentResponse'
+        '500':
+          description: Ошибка сервера
   /comment/ClanAnnouncement/subscribe/{clanAnnouncementId}/{announcementId}/:
     post:
       tags:
@@ -366,6 +388,8 @@ paths:
             application/json; charset=utf-8: 
               schema:
                 $ref: '#/components/schemas/RateResponse'
+        '500':
+          description: Ошибка сервера
   /groups/{groupLink}/discussions:
     get:
       tags:
@@ -386,6 +410,8 @@ paths:
             text/html; charset=UTF-8: 
               schema:
                 $ref: '#/components/schemas/HtmlResponse'
+        '500':
+          description: Ошибка сервера
   /groups/{groupLink}/comments:
     get:
       tags:
@@ -411,6 +437,8 @@ paths:
             text/html; charset=UTF-8: 
               schema:
                 $ref: '#/components/schemas/HtmlResponse'
+        '500':
+          description: Ошибка сервера
   /comment/Clan/post/{clanId}/{feature2}:
     post:
       tags:
@@ -443,6 +471,8 @@ paths:
             application/json; charset=utf-8: 
               schema:
                 $ref: '#/components/schemas/CommentResponse'
+        '500':
+          description: Ошибка сервера
   /comment/Clan/subscribe/{clanId}/{feature2}:
     post:
       tags:
@@ -475,6 +505,8 @@ paths:
             application/json; charset=utf-8: 
               schema:
                 $ref: '#/components/schemas/RateResponse'
+        '500':
+          description: Ошибка сервера
   /comment/Clan/delete/{clanId}/{feature2}:
     post:
       tags:
@@ -507,6 +539,8 @@ paths:
             application/json; charset=utf-8: 
               schema:
                 $ref: '#/components/schemas/CommentResponse'
+        '500':
+          description: Ошибка сервера
 
           
   /actions/FileUploader:
@@ -556,6 +590,8 @@ paths:
             text/html; charset=UTF-8: 
               schema:
                 $ref: '#/components/schemas/HtmlResponse'
+        '500':
+          description: Ошибка сервера
 components:
   schemas:
     GroupCreate:
